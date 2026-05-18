@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diego Betioli — Estrategista Digital</title>
+  <meta name="description" content="Diego Betioli — Estrategista Digital com expertise em Marketing de Conteúdo, Gestão de Mídias Sociais e Inbound Marketing." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0a0e1a;
+      --surface:   #111827;
+      --surface2:  #1a2235;
+      --border:    #1f2d45;
+      --accent:    #3b82f6;
+      --accent2:   #60a5fa;
+      --text:      #f1f5f9;
+      --muted:     #94a3b8;
+      --tag-bg:    rgba(59,130,246,.12);
+      --radius:    12px;
+      --transition: .25s ease;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 5%;
+      background: rgba(10,14,26,.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: -.3px;
+      color: var(--text);
+    }
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: .875rem;
+      font-weight: 500;
+      color: var(--muted);
+      transition: color var(--transition);
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-cta {
+      padding: 9px 20px;
+      background: var(--accent);
+      color: #fff !important;
+      border-radius: 8px;
+      font-size: .875rem;
+      font-weight: 600;
+      transition: background var(--transition), transform var(--transition);
+    }
+    .nav-cta:hover { background: var(--accent2); transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 120px 5% 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(59,130,246,.18) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -150px; left: -100px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(96,165,250,.08) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: var(--tag-bg);
+      border: 1px solid rgba(59,130,246,.25);
+      border-radius: 100px;
+      font-size: .78rem;
+      font-weight: 600;
+      color: var(--accent2);
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .hero-tag::before { content: '●'; font-size: .5rem; animation: pulse 2s infinite; }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: .3; }
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      margin-bottom: 20px;
+    }
+    .hero h1 .highlight {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--muted);
+      max-width: 600px;
+      margin-bottom: 40px;
+      font-weight: 400;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      padding: 14px 28px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: var(--radius);
+      font-weight: 700;
+      font-size: .95rem;
+      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+      box-shadow: 0 4px 24px rgba(59,130,246,.3);
+    }
+    .btn-primary:hover { background: var(--accent2); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(59,130,246,.4); }
+
+    .btn-secondary {
+      padding: 14px 28px;
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: var(--radius);
+      font-weight: 600;
+      font-size: .95rem;
+      background: transparent;
+      transition: border-color var(--transition), background var(--transition), transform var(--transition);
+    }
+    .btn-secondary:hover { border-color: var(--accent); background: var(--tag-bg); transform: translateY(-2px); }
+
+    .hero-metrics {
+      display: flex;
+      gap: 40px;
+      margin-top: 72px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    .metric-item {}
+    .metric-value {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent2);
+      letter-spacing: -1px;
+    }
+    .metric-label {
+      font-size: .8rem;
+      color: var(--muted);
+      font-weight: 500;
+      margin-top: 2px;
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 96px 5%; }
+
+    .section-header {
+      margin-bottom: 56px;
+    }
+    .section-eyebrow {
+      font-size: .75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -1px;
+      line-height: 1.15;
+    }
+    .section-desc {
+      margin-top: 12px;
+      color: var(--muted);
+      max-width: 520px;
+      font-size: .95rem;
+    }
+
+    /* ── SOBRE ── */
+    #sobre {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .sobre-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .sobre-text p {
+      color: var(--muted);
+      margin-bottom: 16px;
+      font-size: .95rem;
+    }
+    .sobre-text p strong { color: var(--text); }
+    .sobre-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 24px;
+    }
+    .tag {
+      padding: 5px 12px;
+      background: var(--tag-bg);
+      border: 1px solid rgba(59,130,246,.2);
+      border-radius: 100px;
+      font-size: .78rem;
+      font-weight: 600;
+      color: var(--accent2);
+    }
+    .sobre-card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+    }
+    .sobre-card h3 {
+      font-size: .85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .stat-row:last-child { border-bottom: none; }
+    .stat-name { font-size: .88rem; color: var(--muted); }
+    .stat-val { font-size: .95rem; font-weight: 700; color: var(--text); }
+
+    /* ── EXPERIÊNCIA ── */
+    .timeline {
+      position: relative;
+      padding-left: 32px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 8px; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 48px;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -38px; top: 6px;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--bg);
+      box-shadow: 0 0 0 4px rgba(59,130,246,.2);
+    }
+    .timeline-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+    .timeline-period {
+      font-size: .75rem;
+      font-weight: 600;
+      color: var(--accent2);
+      background: var(--tag-bg);
+      padding: 3px 10px;
+      border-radius: 100px;
+      border: 1px solid rgba(59,130,246,.2);
+    }
+    .timeline-company {
+      font-size: .8rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .timeline-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+    .timeline-desc {
+      font-size: .88rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .timeline-achievement {
+      margin-top: 10px;
+      padding: 10px 14px;
+      background: rgba(59,130,246,.08);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      font-size: .83rem;
+      color: var(--accent2);
+      font-weight: 500;
+    }
+
+    /* ── COMPETÊNCIAS ── */
+    #competencias { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+    .skill-card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      transition: border-color var(--transition), transform var(--transition);
+    }
+    .skill-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .skill-icon {
+      width: 44px; height: 44px;
+      background: var(--tag-bg);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 14px;
+    }
+    .skill-name {
+      font-size: .95rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .skill-desc {
+      font-size: .8rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── PROJETOS/DESTAQUES ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+    }
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      transition: border-color var(--transition), transform var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+    .project-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+    .project-card:hover::before { opacity: 1; }
+    .project-type {
+      font-size: .7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .project-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .project-desc {
+      font-size: .85rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+    .project-result {
+      margin-top: 16px;
+      padding: 8px 12px;
+      background: rgba(59,130,246,.08);
+      border-radius: 8px;
+      font-size: .8rem;
+      color: var(--accent2);
+      font-weight: 600;
+    }
+
+    /* ── CONTATO ── */
+    #contato { background: var(--surface); border-top: 1px solid var(--border); }
+
+    .contato-inner {
+      max-width: 640px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .contato-inner .section-title { margin-bottom: 16px; }
+    .contato-inner p {
+      color: var(--muted);
+      margin-bottom: 40px;
+      font-size: .95rem;
+    }
+    .contato-links {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .contato-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 24px;
+      border-radius: var(--radius);
+      font-weight: 700;
+      font-size: .9rem;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .contato-btn:hover { transform: translateY(-2px); }
+    .contato-btn.primary { background: var(--accent); color: #fff; box-shadow: 0 4px 20px rgba(59,130,246,.3); }
+    .contato-btn.primary:hover { box-shadow: 0 8px 32px rgba(59,130,246,.45); }
+    .contato-btn.ghost { border: 1px solid var(--border); color: var(--text); }
+    .contato-btn.ghost:hover { border-color: var(--accent); background: var(--tag-bg); }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 32px 5%;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: .8rem;
+      color: var(--muted);
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .sobre-grid { grid-template-columns: 1fr; gap: 40px; }
+      .hero-metrics { gap: 24px; }
+      footer { justify-content: center; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Diego <span>Betioli</span></div>
+  <ul class="nav-links">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#experiencia">Experiência</a></li>
+    <li><a href="#competencias">Competências</a></li>
+    <li><a href="#projetos">Projetos</a></li>
+    <li><a href="#contato" class="nav-cta">Contato</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag">Disponível para novos projetos</div>
+  <h1>
+    Estrategista Digital<br />
+    <span class="highlight">que transforma conteúdo<br />em resultado.</span>
+  </h1>
+  <p class="hero-sub">
+    Mais de 7 anos construindo estratégias de marketing digital, gerenciando equipes criativas e gerando crescimento orgânico para marcas e negócios.
+  </p>
+  <div class="hero-actions">
+    <a href="#experiencia" class="btn-primary">Ver trajetória</a>
+    <a href="#contato" class="btn-secondary">Falar comigo</a>
+  </div>
+  <div class="hero-metrics">
+    <div class="metric-item">
+      <div class="metric-value">4M+</div>
+      <div class="metric-label">Visualizações em vídeos originais</div>
+    </div>
+    <div class="metric-item">
+      <div class="metric-value">7+</div>
+      <div class="metric-label">Anos de experiência em digital</div>
+    </div>
+    <div class="metric-item">
+      <div class="metric-value">2</div>
+      <div class="metric-label">Newsletters fundadas</div>
+    </div>
+    <div class="metric-item">
+      <div class="metric-value">Multi</div>
+      <div class="metric-label">Canais & formatos dominados</div>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE -->
+<section id="sobre">
+  <div class="sobre-grid">
+    <div class="sobre-text">
+      <div class="section-header">
+        <div class="section-eyebrow">Sobre mim</div>
+        <h2 class="section-title">Digital na veia,<br />estratégia na mente.</h2>
+      </div>
+      <p>
+        Sou <strong>Diego Betioli</strong>, profissional de marketing digital com trajetória construída em agências, startups e projetos próprios. Minha expertise atravessa toda a cadeia do digital — da produção de conteúdo à gestão de equipes, do SEO à estratégia de redes sociais.
+      </p>
+      <p>
+        Ao longo da carreira, passei por empresas como <strong>XCOM, Agência A2AD, LiveMode e Sou Vagalume</strong>, sempre com foco em gerar resultado mensurável: visualizações, engajamento, conversão e crescimento de audiência.
+      </p>
+      <p>
+        Além da atuação corporativa, sou fundador de newsletters próprias e colunista, o que demonstra minha visão editorial e capacidade de construir audiência do zero.
+      </p>
+      <div class="sobre-tags">
+        <span class="tag">Estratégia de Conteúdo</span>
+        <span class="tag">Inbound Marketing</span>
+        <span class="tag">SEO</span>
+        <span class="tag">Social Media</span>
+        <span class="tag">Gestão de Times</span>
+        <span class="tag">Newsletter</span>
+        <span class="tag">Produção de Vídeo</span>
+        <span class="tag">MBA</span>
+      </div>
+    </div>
+    <div>
+      <div class="sobre-card">
+        <h3>Perfil Rápido</h3>
+        <div class="stat-row">
+          <span class="stat-name">Área</span>
+          <span class="stat-val">Marketing Digital</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-name">Especialidade</span>
+          <span class="stat-val">Conteúdo & Estratégia</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-name">Formação</span>
+          <span class="stat-val">MBA em andamento</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-name">Experiência</span>
+          <span class="stat-val">7+ anos</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-name">Idiomas</span>
+          <span class="stat-val">Português · Inglês</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-name">Modalidade</span>
+          <span class="stat-val">Remoto / Híbrido</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIÊNCIA -->
+<section id="experiencia">
+  <div class="section-header">
+    <div class="section-eyebrow">Trajetória</div>
+    <h2 class="section-title">Experiência Profissional</h2>
+    <p class="section-desc">Uma carreira construída em ambientes exigentes, com resultados concretos e crescente responsabilidade estratégica.</p>
+  </div>
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-meta">
+        <span class="timeline-period">2025 – Atual</span>
+        <span class="timeline-company">LiveMode</span>
+      </div>
+      <div class="timeline-title">Estrategista Digital</div>
+      <div class="timeline-desc">
+        Responsável pelo desenvolvimento e execução de estratégias digitais integradas, conectando posicionamento de marca, produção de conteúdo e canais de distribuição para maximizar o alcance e o impacto da empresa.
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-meta">
+        <span class="timeline-period">2024 – 2025</span>
+        <span class="timeline-company">Agência A2AD</span>
+      </div>
+      <div class="timeline-title">Social Media / Community Manager / Curadoria e Produção de Conteúdo</div>
+      <div class="timeline-desc">
+        Gestão completa de presença digital de clientes: planejamento editorial, produção de conteúdo, curadoria, moderação de comunidades e análise de performance. Atuação estratégica e operacional simultaneamente.
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-meta">
+        <span class="timeline-period">2022 – 2024</span>
+        <span class="timeline-company">XCOM</span>
+      </div>
+      <div class="timeline-title">Gerente de Digital</div>
+      <div class="timeline-desc">
+        Liderança da área de digital com gestão de time multidisciplinar. Coordenação de campanhas e projetos de alto impacto para clientes estratégicos, com foco em resultados de negócio mensuráveis.
+      </div>
+      <div class="timeline-achievement">
+        🏆 Mais de 4 milhões de visualizações em vídeos originais para o Facebook/Meta no Projeto de Clubes
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-meta">
+        <span class="timeline-period">2021 – 2022</span>
+        <span class="timeline-company">XCOM</span>
+      </div>
+      <div class="timeline-title">Coordenador de Conteúdo</div>
+      <div class="timeline-desc">
+        Gestão de time de conteúdo e demandas de Inbound Marketing. Definição de pautas, aprovação editorial, alinhamento com marketing de performance e estratégia de funil de conteúdo.
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-meta">
+        <span class="timeline-period">2020 – 2021</span>
+        <span class="timeline-company">XCOM</span>
+      </div>
+      <div class="timeline-title">Coordenador de Digital</div>
+      <div class="timeline-desc">
+        Coordenação das frentes digitais da empresa, com envolvimento direto em mídias sociais, produção de conteúdo e projetos especiais para clientes do portfólio.
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-meta">
+        <span class="timeline-period">2019 – 2020</span>
+        <span class="timeline-company">Sou Vagalume</span>
+      </div>
+      <div class="timeline-title">Conteudista (SEO)</div>
+      <div class="timeline-desc">
+        Produção de conteúdo otimizado para motores de busca, com domínio de técnicas de SEO on-page, pesquisa de palavras-chave e análise de desempenho orgânico.
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-meta">
+        <span class="timeline-period">Freelance</span>
+        <span class="timeline-company">Meta Galáxia</span>
+      </div>
+      <div class="timeline-title">Sócio-Colunista</div>
+      <div class="timeline-desc">
+        Co-criação e publicação de conteúdo editorial com perspectiva analítica sobre tecnologia, cultura digital e comportamento de consumo online.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- COMPETÊNCIAS -->
+<section id="competencias">
+  <div class="section-header">
+    <div class="section-eyebrow">Skills</div>
+    <h2 class="section-title">Competências</h2>
+    <p class="section-desc">Combinação de visão estratégica e execução prática — da ideia ao resultado.</p>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-icon">📣</div>
+      <div class="skill-name">Estratégia de Conteúdo</div>
+      <div class="skill-desc">Planejamento editorial, criação de pauta, calendário de conteúdo e alinhamento com objetivos de negócio.</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">📱</div>
+      <div class="skill-name">Social Media</div>
+      <div class="skill-desc">Gestão de redes sociais, crescimento de audiência, engajamento e análise de métricas em múltiplas plataformas.</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🔍</div>
+      <div class="skill-name">SEO</div>
+      <div class="skill-desc">Otimização para mecanismos de busca, pesquisa de palavras-chave, análise de concorrência e conteúdo orgânico.</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🎯</div>
+      <div class="skill-name">Inbound Marketing</div>
+      <div class="skill-desc">Atração, nutrição e conversão de leads por meio de conteúdo relevante e jornadas de compra bem estruturadas.</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🎬</div>
+      <div class="skill-name">Produção de Vídeo</div>
+      <div class="skill-desc">Roteirização, curadoria e gestão de conteúdo audiovisual para plataformas como Facebook/Meta e YouTube.</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">👥</div>
+      <div class="skill-name">Gestão de Times</div>
+      <div class="skill-desc">Liderança de equipes criativas multidisciplinares, alinhamento de demandas e desenvolvimento de talentos.</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">✉️</div>
+      <div class="skill-name">Email Marketing & Newsletter</div>
+      <div class="skill-desc">Criação, curadoria e distribuição de newsletters com foco em taxa de abertura, engajamento e crescimento de base.</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">📊</div>
+      <div class="skill-name">Análise de Dados</div>
+      <div class="skill-desc">Leitura e interpretação de métricas digitais para embasar decisões estratégicas e otimizar campanhas.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJETOS / DESTAQUES -->
+<section id="projetos">
+  <div class="section-header">
+    <div class="section-eyebrow">Destaques</div>
+    <h2 class="section-title">Projetos & Realizações</h2>
+    <p class="section-desc">Iniciativas que mostram capacidade de criação, liderança e geração de resultado.</p>
+  </div>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <div class="project-type">Vídeo · Facebook/Meta</div>
+      <div class="project-title">Projeto de Clubes — XCOM</div>
+      <div class="project-desc">
+        Desenvolvimento e execução de estratégia de vídeos originais para o Facebook/Meta voltados ao universo de clubes de futebol, com foco em alcance orgânico e engajamento de audiências apaixonadas.
+      </div>
+      <div class="project-result">🏆 +4 milhões de visualizações orgânicas</div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-type">Newsletter · Email Marketing</div>
+      <div class="project-title">X da Questão</div>
+      <div class="project-desc">
+        Newsletter fundada e gerida por Diego com curadoria editorial e produção de conteúdo analítico. Consolidação de uma taxa de abertura expressiva e base de leitores engajados.
+      </div>
+      <div class="project-result">📬 Taxa de abertura consolidada acima da média do mercado</div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-type">Newsletter · Conteúdo Original</div>
+      <div class="project-title">Tem Sexta Que É</div>
+      <div class="project-desc">
+        Iniciativa editorial independente: fundação, produção e distribuição de newsletter com voz autoral própria, demonstrando capacidade de construção de audiência do zero.
+      </div>
+      <div class="project-result">🚀 Projeto fundado e mantido de forma independente</div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-type">Colunismo · Editorial</div>
+      <div class="project-title">Meta Galáxia</div>
+      <div class="project-desc">
+        Parceria editorial como sócio-colunista: produção de artigos com perspectiva crítica e analítica sobre tecnologia, cultura digital e tendências de comportamento online.
+      </div>
+      <div class="project-result">✍️ Publicação regular com voz editorial reconhecida</div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-type">SEO · Conteúdo Orgânico</div>
+      <div class="project-title">Crescimento Orgânico — Sou Vagalume</div>
+      <div class="project-desc">
+        Produção sistemática de conteúdo SEO-driven, aumentando a visibilidade orgânica do portal com técnicas avançadas de otimização on-page e pesquisa de intenção de busca.
+      </div>
+      <div class="project-result">🔍 Crescimento de tráfego orgânico via SEO</div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-type">Liderança · Gestão de Times</div>
+      <div class="project-title">Estruturação da Área Digital — XCOM</div>
+      <div class="project-desc">
+        Trajetória de crescimento interno na XCOM — de Coordenador a Gerente de Digital — liderando a estruturação e escalabilidade da área com novos processos, equipe e entregas.
+      </div>
+      <div class="project-result">📈 Progressão e liderança de equipe multidisciplinar</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section id="contato">
+  <div class="contato-inner">
+    <div class="section-eyebrow">Vamos conversar?</div>
+    <h2 class="section-title">Aberto a novas oportunidades</h2>
+    <p>Se você busca um estrategista digital experiente, orientado a resultados e com visão editorial apurada — estou disponível para conversar sobre projetos, vagas ou parcerias.</p>
+    <div class="contato-links">
+      <a href="https://www.linkedin.com/in/diegobetioli" target="_blank" rel="noopener" class="contato-btn primary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+      <a href="mailto:diego@betioli.com" class="contato-btn ghost">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        Enviar e-mail
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2026 Diego Betioli. Todos os direitos reservados.</span>
+  <span>Estrategista Digital · São Paulo, Brasil</span>
+</footer>
+
+</body>
+</html>
