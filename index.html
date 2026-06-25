@@ -2,76 +2,160 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <style>
-        :root {
-            --primary: #4285F4; /* Cor Google Blue */
-            --bg: #f8f9fa;
-        }
-        body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; background: var(--bg); margin: 0; overflow: hidden; }
-        .grid { display: grid; grid-template-columns: repeat(4, 70px); gap: 10px; padding: 20px; }
-        .card { width: 70px; height: 70px; background: var(--primary); border-radius: 8px; cursor: pointer; position: relative; transform-style: preserve-3d; transition: transform 0.5s; }
-        .card.flipped { transform: rotateY(180deg); }
-        .card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
-        .card-back { background: #fff; transform: rotateY(180deg); border: 2px solid var(--primary); }
-        #status { margin-top: 10px; font-weight: bold; color: #5f6368; }
-        button { margin-top: 10px; padding: 5px 15px; border: none; background: #dadce0; border-radius: 4px; cursor: pointer; }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Redes Sociais · Sidney Cruz</title>
+    <meta name="description" content="Acompanhamento em tempo real do crescimento de seguidores nos perfis políticos (Instagram, Facebook e TikTok).">
+    <link rel="stylesheet" href="assets/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
 </head>
 <body>
-    <div id="status">Pares encontrados: 0</div>
-    <div class="grid" id="grid"></div>
-    <button onclick="setupGame()">Reiniciar</button>
+    <header class="topbar">
+        <div class="brand">
+            <div class="brand__logo">SC</div>
+            <div class="brand__text">
+                <strong>Sidney Cruz</strong>
+                <span>Vereador · Pré-candidato a Deputado Federal por SP</span>
+            </div>
+        </div>
+        <div class="topbar__right">
+            <div class="live" id="live">
+                <span class="live__dot"></span>
+                <span class="live__label">Ao vivo</span>
+                <span class="live__time" id="liveTime">--:--:--</span>
+            </div>
+            <button class="btn btn--ghost" id="btnSettings" title="Configurações">⚙︎ Configurações</button>
+        </div>
+    </header>
 
-    <script>
-        const icons = ['📊', '📈', '📉', '📁', '💡', '🔍'];
-        let cards = [...icons, ...icons];
-        let flippedCards = [];
-        let matchedCount = 0;
+    <main class="wrap">
+        <section class="page-head">
+            <div>
+                <h1>Crescimento de seguidores</h1>
+                <p class="muted">Seguidores atuais e variação dos últimos 30 dias, por rede e por perfil.</p>
+            </div>
+            <div class="page-head__actions">
+                <button class="btn btn--primary" id="btnAddProfile">+ Adicionar perfil</button>
+                <button class="btn btn--ghost" id="btnRefresh" title="Atualizar agora">↻ Atualizar</button>
+            </div>
+        </section>
 
-        function setupGame() {
-            const grid = document.getElementById('grid');
-            grid.innerHTML = '';
-            matchedCount = 0;
-            updateStatus();
-            cards.sort(() => Math.random() - 0.5);
-            cards.forEach((icon, index) => {
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.dataset.icon = icon;
-                card.innerHTML = `<div class="card-front"></div><div class="card-back">${icon}</div>`;
-                card.onclick = () => flipCard(card);
-                grid.appendChild(card);
-            });
-        }
+        <!-- Totais por rede -->
+        <section class="net-summary" id="netSummary" aria-label="Totais por rede"></section>
 
-        function flipCard(card) {
-            if (flippedCards.length < 2 && !card.classList.contains('flipped')) {
-                card.classList.add('flipped');
-                flippedCards.push(card);
-                if (flippedCards.length === 2) checkMatch();
-            }
-        }
+        <!-- Lista de perfis -->
+        <section class="profiles-head">
+            <h2>Perfis monitorados <span class="count" id="profileCount">0</span></h2>
+            <div class="filters" id="netFilter" role="tablist">
+                <button class="chip chip--active" data-net="all">Todas</button>
+                <button class="chip" data-net="instagram">Instagram</button>
+                <button class="chip" data-net="facebook">Facebook</button>
+                <button class="chip" data-net="tiktok">TikTok</button>
+            </div>
+        </section>
 
-        function checkMatch() {
-            const [c1, c2] = flippedCards;
-            if (c1.dataset.icon === c2.dataset.icon) {
-                matchedCount++;
-                flippedCards = [];
-                updateStatus();
-            } else {
-                setTimeout(() => {
-                    c1.classList.remove('flipped');
-                    c2.classList.remove('flipped');
-                    flippedCards = [];
-                }, 1000);
-            }
-        }
+        <section class="grid" id="profileGrid"></section>
 
-        function updateStatus() {
-            document.getElementById('status').innerText = `Pares encontrados: ${matchedCount}`;
-        }
+        <div class="empty" id="emptyState" hidden>
+            <p>Nenhum perfil cadastrado ainda.</p>
+            <button class="btn btn--primary" id="btnAddFirst">Adicionar o primeiro perfil</button>
+            <button class="btn btn--ghost" id="btnSeed">Carregar dados de demonstração</button>
+        </div>
+    </main>
 
-        setupGame();
-    </script>
+    <footer class="footer">
+        <span>Painel atualizado a cada <span id="footIntervalText">60s</span>.</span>
+        <span class="footer__sep">·</span>
+        <a href="jogo-da-memoria.html">Jogo da memória</a>
+        <span class="footer__sep">·</span>
+        <button class="linklike" id="btnExport">Exportar dados</button>
+        <button class="linklike" id="btnImport">Importar dados</button>
+        <input type="file" id="importFile" accept="application/json" hidden>
+    </footer>
+
+    <!-- Modal: adicionar/editar perfil -->
+    <div class="modal" id="profileModal" hidden>
+        <div class="modal__card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <header class="modal__head">
+                <h3 id="modalTitle">Adicionar perfil</h3>
+                <button class="modal__close" data-close>×</button>
+            </header>
+            <form id="profileForm" class="form">
+                <input type="hidden" name="id">
+                <label class="field">
+                    <span>Rede social</span>
+                    <select name="network" required>
+                        <option value="instagram">Instagram</option>
+                        <option value="facebook">Facebook</option>
+                        <option value="tiktok">TikTok</option>
+                    </select>
+                </label>
+                <label class="field">
+                    <span>Nome do perfil</span>
+                    <input type="text" name="name" placeholder="Ex.: Sidney Cruz Oficial" required>
+                </label>
+                <label class="field">
+                    <span>@usuário</span>
+                    <input type="text" name="handle" placeholder="sidneycruz" required>
+                </label>
+                <div class="field-row">
+                    <label class="field">
+                        <span>Seguidores atuais</span>
+                        <input type="number" name="current" min="0" step="1" placeholder="12500" required>
+                    </label>
+                    <label class="field">
+                        <span>Seguidores há 30 dias <em>(opcional)</em></span>
+                        <input type="number" name="baseline30" min="0" step="1" placeholder="11000">
+                    </label>
+                </div>
+                <p class="hint">Informar a base de 30 dias atrás faz o crescimento aparecer imediatamente. Sem ela, o painel passa a medir a partir de agora.</p>
+                <footer class="form__actions">
+                    <button type="button" class="btn btn--ghost" data-close>Cancelar</button>
+                    <button type="submit" class="btn btn--primary">Salvar</button>
+                </footer>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: configurações -->
+    <div class="modal" id="settingsModal" hidden>
+        <div class="modal__card" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+            <header class="modal__head">
+                <h3 id="settingsTitle">Configurações</h3>
+                <button class="modal__close" data-close>×</button>
+            </header>
+            <form id="settingsForm" class="form">
+                <label class="field">
+                    <span>Intervalo de atualização</span>
+                    <select name="interval">
+                        <option value="15">15 segundos</option>
+                        <option value="30">30 segundos</option>
+                        <option value="60" selected>1 minuto</option>
+                        <option value="300">5 minutos</option>
+                    </select>
+                </label>
+                <label class="field">
+                    <span>Fonte de dados</span>
+                    <select name="source">
+                        <option value="manual">Manual — eu atualizo os números</option>
+                        <option value="simulado">Simulação — gera variação realista (demonstração)</option>
+                        <option value="api">API — buscar de um endpoint próprio</option>
+                    </select>
+                </label>
+                <label class="field" id="apiField" hidden>
+                    <span>Endpoint da API</span>
+                    <input type="url" name="apiEndpoint" placeholder="https://seu-backend.com/seguidores">
+                    <small class="hint">O painel chama <code>GET endpoint?network=&amp;handle=</code> e espera <code>{ "followers": 12345 }</code>. Use um backend próprio para conectar as APIs oficiais do Instagram/Facebook (Graph API) e TikTok com segurança.</small>
+                </label>
+                <footer class="form__actions">
+                    <button type="button" class="btn btn--ghost" data-close>Fechar</button>
+                    <button type="submit" class="btn btn--primary">Salvar</button>
+                </footer>
+            </form>
+        </div>
+    </div>
+
+    <div class="toast" id="toast" hidden></div>
+
+    <script src="assets/app.js"></script>
 </body>
 </html>
