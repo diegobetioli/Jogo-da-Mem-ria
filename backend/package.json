@@ -1,0 +1,13 @@
+{
+  "name": "painel-seguidores-conector",
+  "version": "1.0.0",
+  "description": "Conector que busca seguidores das redes para o painel da campanha.",
+  "private": true,
+  "type": "commonjs",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node server.js"
+  }
+}

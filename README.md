@@ -22,21 +22,28 @@ salvos no `localStorage` do próprio navegador.
    uma fonte automática em **Configurações**.
 3. **Exportar / Importar** — backup dos dados em JSON (rodapé).
 
+## Perfis automáticos x manuais
+
+Ao cadastrar um perfil, marque **"atualizar sozinho"** se for uma conta da
+campanha — ela busca os números automaticamente. Deixe desmarcado para perfis
+de adversários, que continuam atualizados na mão (as redes não liberam leitura
+automática de contas de terceiros).
+
 ## Fontes de dados
 
-Em **Configurações → Fonte de dados**:
+Em **Configurações → Fonte de dados** (vale para os perfis marcados como automáticos):
 
 - **Manual** — você registra os números (cada atualização vira um ponto no
   histórico, alimentando o cálculo de 30 dias).
 - **Simulação** — gera variação realista, útil para demonstração.
-- **API** — busca de um endpoint próprio:
-  `GET endpoint?network=<rede>&handle=<usuario>` → `{ "followers": 12345 }`.
+- **API** — busca de um conector próprio:
+  `GET endpoint/followers?network=<rede>&handle=<usuario>` → `{ "followers": 12345 }`.
 
 > ⚠️ As APIs oficiais (Instagram/Facebook **Graph API** e **TikTok**) exigem
 > tokens de acesso e contas business, e **não podem ser chamadas direto do
-> navegador** (CORS + segredo do token). O caminho recomendado é um pequeno
-> backend/proxy que guarde os tokens e exponha o endpoint acima. O painel já
-> está pronto para consumir esse endpoint.
+> navegador** (CORS + segredo do token). Por isso há um conector em
+> [`backend/`](backend/) que guarda os tokens e expõe o endpoint acima.
+> Passo a passo simples para ligar tudo: [`backend/GUIA.md`](backend/GUIA.md).
 
 ## Arquivos
 
@@ -45,4 +52,6 @@ Em **Configurações → Fonte de dados**:
 | `index.html` | Dashboard (página principal) |
 | `assets/styles.css` | Estilos |
 | `assets/app.js` | Lógica, persistência e cálculo de métricas |
+| `backend/` | Conector que busca seguidores reais das redes (Instagram/Facebook/TikTok) |
+| `backend/GUIA.md` | Passo a passo simples para a atualização automática |
 | `jogo-da-memoria.html` | Jogo da memória original (preservado) |

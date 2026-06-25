@@ -165,6 +165,9 @@ body {
 .card__id { flex: 1; min-width: 0; }
 .card__name { font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .card__handle { font-size: 13px; color: var(--muted); }
+.badge { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; padding: 2px 7px; border-radius: 999px; margin-left: 6px; vertical-align: middle; }
+.badge--auto { background: color-mix(in srgb, var(--up) 20%, transparent); color: var(--up); }
+.badge--manual { background: var(--panel-2); color: var(--muted); }
 .card__menu { display: flex; gap: 4px; }
 .icon-btn {
     width: 30px; height: 30px; border-radius: 8px; cursor: pointer;
@@ -228,6 +231,8 @@ body {
 .field input:focus, .field select:focus { outline: 2px solid var(--primary); border-color: var(--primary); }
 .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .hint { font-size: 12px; color: var(--muted); margin: 0; line-height: 1.5; }
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: var(--text); line-height: 1.45; cursor: pointer; }
+.check input { margin-top: 2px; width: 16px; height: 16px; flex: 0 0 auto; accent-color: var(--primary); }
 .hint code { background: var(--bg-soft); padding: 1px 5px; border-radius: 4px; }
 .form__actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 6px; }
 

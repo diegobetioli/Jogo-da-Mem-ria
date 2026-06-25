@@ -209,7 +209,9 @@
             <div class="avatar" data-net="${p.network}">${initial}</div>
             <div class="card__id">
               <div class="card__name" title="${escapeHtml(p.name)}">${escapeHtml(p.name)}</div>
-              <div class="card__handle">${meta.label} · @${escapeHtml(p.handle)}</div>
+              <div class="card__handle">${meta.label} · @${escapeHtml(p.handle)}
+                <span class="badge ${p.auto ? "badge--auto" : "badge--manual"}">${p.auto ? "Auto" : "Manual"}</span>
+              </div>
             </div>
             <div class="card__menu">
               <button class="icon-btn" data-action="edit" title="Editar / atualizar">✎</button>
@@ -246,16 +248,17 @@
     const handle = form.handle.value.trim().replace(/^@/, "");
     const current = Math.max(0, parseInt(form.current.value, 10) || 0);
     const baseline30 = form.baseline30.value ? Math.max(0, parseInt(form.baseline30.value, 10)) : null;
+    const auto = !!form.auto.checked;
     const now = Date.now();
 
     if (id) {
       const p = state.profiles.find((x) => x.id === id);
       if (!p) return;
-      p.network = network; p.name = name; p.handle = handle;
+      p.network = network; p.name = name; p.handle = handle; p.auto = auto;
       recordMeasurement(p, current, now);
       toast("Perfil atualizado.");
     } else {
-      const p = { id: uid(), network, name, handle, history: [] };
+      const p = { id: uid(), network, name, handle, auto, history: [] };
       // Semeia base de 30 dias atrás, se informada, para crescimento imediato.
       if (baseline30 != null) p.history.push({ t: now - WINDOW_30D, v: baseline30 });
       p.history.push({ t: now, v: current });
@@ -304,15 +307,17 @@
     let changed = false;
 
     for (const p of state.profiles) {
-      let value = currentFollowers(p);
+      // Apenas perfis marcados como "da campanha" (auto) atualizam sozinhos.
+      // Adversários (auto = false) permanecem manuais.
+      if (!p.auto) continue;
+
       if (src === "simulado") {
-        value = simulateNext(p);
+        recordMeasurement(p, simulateNext(p));
         changed = true;
       } else if (src === "api" && state.settings.apiEndpoint) {
         const fetched = await fetchFromApi(p);
-        if (fetched != null) { value = fetched; changed = true; }
+        if (fetched != null) { recordMeasurement(p, fetched); changed = true; }
       }
-      if (changed) recordMeasurement(p, value);
     }
 
     if (changed) { save(); render(); }
@@ -370,6 +375,7 @@
       form.name.value = profile.name;
       form.handle.value = profile.handle;
       form.current.value = currentFollowers(profile);
+      form.auto.checked = !!profile.auto;
       form.baseline30.parentElement.style.display = "none";
     } else {
       $("#modalTitle").textContent = "Adicionar perfil";
@@ -442,7 +448,7 @@
         const v = Math.round(d.start + (d.end - d.start) * k + (Math.random() - 0.5) * 60);
         history.push({ t, v: Math.max(0, v) });
       }
-      return { id: uid(), network: d.network, name: d.name, handle: d.handle, history };
+      return { id: uid(), network: d.network, name: d.name, handle: d.handle, auto: true, history };
     });
     save();
     render();
