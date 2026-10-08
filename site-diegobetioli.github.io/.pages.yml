@@ -1,0 +1,99 @@
+# Configuração do editor visual Pages CMS (https://app.pagescms.org).
+# Define o formulário usado para editar o portfolio sem mexer em código.
+
+media:
+  input: arquivos
+  output: /arquivos
+
+content:
+  - name: portfolio
+    label: Meu portfolio
+    type: file
+    path: conteudos.json
+    format: json
+    fields:
+      - name: itens
+        label: Conteúdos
+        type: object
+        list: true
+        fields:
+          - name: titulo
+            label: Título
+            type: string
+            required: true
+          - name: categoria
+            label: Categoria
+            type: select
+            required: true
+            options:
+              values:
+                - { name: blog-seo-geo, label: Artigos de blog SEO/GEO }
+                - { name: linkedin-artigos, label: Artigos para LinkedIn }
+                - { name: linkedin-c-level, label: Posts para C-Level }
+                - { name: newsletters, label: Newsletters }
+                - { name: redes-sociais, label: Redes sociais }
+                - { name: roteiros-video, label: Roteiros de vídeo }
+                - { name: outros, label: Livros e outros conteúdos }
+          - name: url
+            label: Link do conteúdo
+            type: string
+            description: Endereço completo, começando com https://. Se o conteúdo for um arquivo, deixe em branco e use o campo abaixo.
+          - name: arquivo
+            label: Arquivo (PDF, Word, imagem, vídeo)
+            type: file
+            description: Use quando o conteúdo não estiver publicado na internet.
+          - name: veiculo
+            label: Onde foi publicado
+            type: string
+            description: "Ex.: LinkedIn, Blog da empresa, Instagram."
+          - name: cliente
+            label: Cliente ou executivo
+            type: string
+            description: Opcional. Deixe em branco em projetos confidenciais.
+          - name: data
+            label: Data
+            type: string
+            description: "Ano (2024), mês (2024-05) ou dia (2024-05-20)."
+          - name: descricao
+            label: Resumo
+            type: text
+          - name: tags
+            label: Palavras-chave
+            type: string
+            list: true
+          - name: imagem
+            label: Imagem de capa
+            type: image
+            description: Opcional. Aparece no topo do cartão.
+
+      - name: perfil
+        label: Perfil (topo da página)
+        type: object
+        fields:
+          - name: nome
+            label: Nome
+            type: string
+          - name: cargo
+            label: Título profissional
+            type: string
+          - name: destaque
+            label: Trecho do título com marca-texto
+            type: string
+            description: Precisa ser escrito exatamente como aparece no título.
+          - name: bio
+            label: Apresentação
+            type: text
+          - name: local
+            label: Cidade
+            type: string
+          - name: links
+            label: Links do perfil
+            type: object
+            list: true
+            fields:
+              - name: rotulo
+                label: Nome do link
+                type: string
+              - name: url
+                label: Endereço
+                type: string
