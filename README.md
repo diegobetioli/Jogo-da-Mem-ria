@@ -3,4 +3,4 @@ Teste de jogo da memória criado pelo Gemini
 
 ## Portfolio
 
-A pasta [`portfolio/`](portfolio/) contém o portfolio de conteúdo de Diego Betioli (página única). Veja [`portfolio/README.md`](portfolio/README.md) para saber como adicionar links e arquivos.
+O portfolio de Diego Betioli foi publicado em https://diegobetioli.github.io/ (repositório `diegobetioli/diegobetioli.github.io`). A pasta [`portfolio/`](portfolio/) guarda a primeira versão da página.
