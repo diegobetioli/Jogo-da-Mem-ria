@@ -8,7 +8,7 @@ Jogo de cartas em estilo 16 bits: você (só aparecem as suas mãos) enfrenta um
 **Jogar:** https://diegobetioli.github.io/Jogo-da-Mem-ria/ats-duel-card/
 
 - Cada lado recebe 5 cartas, distribuídas aleatoriamente a cada partida.
-- Você escolhe uma carta, o robô responde com uma das dele, e vence o duelo quem tiver mais estrelas.
+- Suas cartas ficam viradas para baixo: você escolhe uma às cegas e só descobre qual é ao jogá-la. O robô responde com uma das dele, e vence o duelo quem tiver mais estrelas.
 - Ganha a partida quem vencer 3 duelos primeiro. Em empate de estrelas, ninguém pontua. Se o placar terminar empatado, há uma prorrogação com cartas às cegas.
 - As cartas do robô são mais fortes de propósito.
 
